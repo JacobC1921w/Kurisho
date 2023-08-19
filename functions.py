@@ -26,3 +26,9 @@ def versionCheck(KurishoVersion):
             p(u"New version available (\u001b[32;1m" + KurishoVersion + "\u001b[0m->\u001b[32;1m" + versionFetch + "\u001b[0m), please use \u001b[31;1mgit pull\u001b[0m to update", 'w')
     except:
         p("Version check timeed out, this might be an issue on githubs end", 'e')
+
+def doQuit(exitCode, errorMessage = None):
+    if errorMessage:
+        p("[" + exitCode + "] " + errorMessage, 'e')
+    doHeart("さようなら!")
+    exit(exitCode)
