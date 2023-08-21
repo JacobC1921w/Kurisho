@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
+import readline
 from json import loads as json
 from functions import *
 from PyPrintSystem.PyPrintSystem import *
 from PyNetTools.PyNetTools import *
+from Completer import completer
 
 KurishoVersion=json(open("./properties.json", 'r').read())["version"]
 exitNow=False
@@ -12,6 +14,9 @@ attackVectors=("Android", "BSD", "iOS", "Linux", "OSX", "Unix", "Windows", "Othe
 printTitle(KurishoVersion)
 versionCheck(KurishoVersion)
 print()
+
+readline.parse_and_bind("bind ^I rl_complete")
+readline.set_completer(completer)
 
 # CLI loop
 while not exitNow:
@@ -30,9 +35,9 @@ while not exitNow:
         else:
             p("Found \u001b[31;1m" + str(len(currentHostList)) + "\u001b[0m hosts", 's')
 
-    elif currentCommand.lower() in ["list", "show", "print"]:
+    elif currentCommand.lower() in ["list", "show", "print", "hosts", "gethosts"]:
         if len(currentHostList) == 0:
-            p("No hosts currently saved, try using \u001b[31;1m`scan`\u001b[0m first", 'e')
+            p("No hosts currently saved, try using `\u001b[31;1mscan\u001b[0m` first", 'e')
         else:
             p("\u001b[31;1m" + str(len(currentHostList)) + "\u001b[0m hosts saved", 's')
             for host in currentHostList:
